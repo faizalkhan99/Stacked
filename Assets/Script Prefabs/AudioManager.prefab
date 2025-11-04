@@ -440,10 +440,10 @@ MonoBehaviour:
   - {fileID: 1933543870682825051}
   _sfxLibrary:
   - id: 0
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: d0c28bc5c5bddb34bbbed6e62ea5d94d, type: 3}
   - id: 2
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 40f9c6bf9f852a14ab5aa49b1f3bfc9f, type: 3}
   - id: 3
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: cd8b9f8ffad0cc64ea147215e28c6257, type: 3}
   - id: 1
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a9bbb5f9c7fc50c4da584cf2dc49b32a, type: 3}

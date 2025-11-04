@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections; // Required for using Coroutines
+using System.Collections;
 using System.Collections.Generic;
 
 // This helper class lets us create an editable list in the Inspector.
@@ -12,12 +12,12 @@ public class Sound
 
 public class AudioManager : MonoBehaviour
 {
-    // --- Singleton Setup ---
     private static AudioManager instance;
     public static AudioManager Instance
     {
         get
         {
+            if (instance == null) instance = FindFirstObjectByType<AudioManager>();
             if (instance == null) Debug.LogError("AudioManager is NULL.");
             return instance;
         }
@@ -25,13 +25,13 @@ public class AudioManager : MonoBehaviour
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource _bgmSource;
-    // This is your pool of pre-made sources for common sounds.
     [SerializeField] private AudioSource[] _sfxSources;
 
     [Header("Audio Clips Library")]
     [SerializeField] private Sound[] _sfxLibrary;
 
     private Dictionary<SoundID, AudioClip> _sfxDictionary;
+    private bool _isSfxMuted = false; // Internal state tracker
 
     private void Awake()
     {
@@ -41,8 +41,10 @@ public class AudioManager : MonoBehaviour
             return;
         }
         instance = this;
+        // Make this persist across scene reloads
+        DontDestroyOnLoad(gameObject); 
 
-        // Populate the Dictionary for fast lookups.
+        // Populate the Dictionary
         _sfxDictionary = new Dictionary<SoundID, AudioClip>();
         foreach (var sound in _sfxLibrary)
         {
@@ -52,6 +54,18 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        // When this AudioManager loads, it immediately checks the
+        // SettingsManager (which loaded in Awake) and sets its mute state.
+        if (SettingsManager.Instance != null)
+        {
+            SetMusicMute(!SettingsManager.Instance.IsMusicEnabled);
+            SetSfxMute(!SettingsManager.Instance.IsSfxEnabled);
+        }
+        else
+        {
+            Debug.LogError("AudioManager: Could not find SettingsManager at Start!");
+        }
+
         PlayBGM();
     }
 
@@ -60,9 +74,12 @@ public class AudioManager : MonoBehaviour
     public void PauseBGM() => _bgmSource?.Pause();
     public void UnpauseBGM() => _bgmSource?.UnPause();
 
-    // --- THE UPGRADED SFX METHOD ---
+    // --- SFX Controls ---
     public void PlaySFX(SoundID id)
     {
+        // CHECK 1: Is SFX muted?
+        if (_isSfxMuted) return;
+
         if (!_sfxDictionary.ContainsKey(id))
         {
             Debug.LogWarning("AudioManager: Sound ID not found in library: " + id);
@@ -71,44 +88,61 @@ public class AudioManager : MonoBehaviour
 
         AudioClip clipToPlay = _sfxDictionary[id];
 
-        // 1. First, try to use one of the pre-made audio sources.
+        // 1. Try to use a pre-made source
         for (int i = 0; i < _sfxSources.Length; i++)
         {
-            if (!_sfxSources[i].isPlaying)
+            if (_sfxSources[i] != null && !_sfxSources[i].isPlaying)
             {
                 _sfxSources[i].PlayOneShot(clipToPlay);
-                return; // Sound played, job done.
+                return; // Sound played.
             }
         }
 
-        // 2. If all pre-made sources are busy, create a temporary one.
+        // 2. If all are busy, create a temporary one
         StartCoroutine(CreateTemporarySourceAndPlay(clipToPlay));
     }
 
     private IEnumerator CreateTemporarySourceAndPlay(AudioClip clip)
     {
-        // Create a new, temporary GameObject to host the AudioSource.
         GameObject tempGO = new GameObject("TempAudio_" + clip.name);
-        tempGO.transform.SetParent(this.transform); // Keep the hierarchy clean.
-
-        // Add and configure the AudioSource component.
+        tempGO.transform.SetParent(this.transform);
         AudioSource tempSource = tempGO.AddComponent<AudioSource>();
 
-        // Optional but recommended: Copy settings from your template sources.
-        if (_sfxSources.Length > 0)
+        if (_sfxSources.Length > 0 && _sfxSources[0] != null)
         {
             tempSource.outputAudioMixerGroup = _sfxSources[0].outputAudioMixerGroup;
             tempSource.spatialBlend = _sfxSources[0].spatialBlend;
-            // Copy any other settings you want to keep consistent.
+            // CHECK 2: Obey the mute setting
+            tempSource.mute = _isSfxMuted;
         }
 
-        // Play the clip.
         tempSource.PlayOneShot(clip);
-
-        // Wait for the length of the clip.
         yield return new WaitForSeconds(clip.length);
-
-        // The sound has finished playing, now destroy the temporary GameObject.
         Destroy(tempGO);
     }
+
+    // --- NEW METHODS (Called by SettingsManager) ---
+    
+    public void SetMusicMute(bool mute)
+    {
+        if (_bgmSource != null)
+        {
+            _bgmSource.mute = mute;
+        }
+    }
+
+    public void SetSfxMute(bool mute)
+    {
+        _isSfxMuted = mute; // Store this for the PlaySFX() check
+        
+        // Mute all pooled SFX sources
+        foreach (AudioSource source in _sfxSources)
+        {
+            if (source != null)
+            {
+                source.mute = mute;
+            }
+        }
+    }
+    // ---
 }

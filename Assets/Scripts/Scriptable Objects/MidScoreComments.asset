@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d555be750d4a72f40ba5acb30c0d128e, type: 3}
+  m_Name: MidScoreComments
+  m_EditorClassIdentifier: 
+  comments:
+  - Hey, not bad! For you.
+  - You've officially graduated from "Total Disaster."
+  - Look at you! You stacked some things.
+  - That's... respectable. I guess.
+  - A solid "meh" effort. Keep going!
+  - Is that... a tower? Kinda!
+  - Not terrible. I've seen worse.
+  - This is fine. Everything is fine.
+  - You're slightly above average! Maybe.
+  - Well, look at Mr. Almost-Got-It.

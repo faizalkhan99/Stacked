@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d555be750d4a72f40ba5acb30c0d128e, type: 3}
+  m_Name: HighScoreComments
+  m_EditorClassIdentifier: 
+  comments:
+  - Okay, now you're just showing off.
+  - Damn you should've been a contruction worker
+  - You into buildings shawty?
+  - Did you bribe the physics engine?
+  - That's high enough to... almost be impressive.
+  - Are you... good at this?
+  - Witchcraft! That's the only explanation.
+  - You're making the other players look bad. Stop it.
+  - All right, all right, settle down.
+  - That was... unexpectedly competent.
+  - I'm not mad, I'm just impressed.
+  - You're almost at "needs-to-go-outside" levels.
