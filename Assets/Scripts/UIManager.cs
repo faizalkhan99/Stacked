@@ -373,7 +373,7 @@ public void OnVibrationsToggled(bool isOn)
     {
         if (mainMenuHighScoreText)
         {
-            mainMenuHighScoreText.text = $"High Score: {score}";
+            mainMenuHighScoreText.text = $"{score}";
         }
     }
 

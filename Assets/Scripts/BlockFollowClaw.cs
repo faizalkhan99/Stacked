@@ -32,13 +32,15 @@ public class BlockFollowClaw : MonoBehaviour
             transform.position = _targetClaw.position - _offset;
         }
     }
-
-    // Called by GameManager to "detach" this block
-    public void Release()
+    public void Release(float dropForce) // Now accepts a force
     {
         _isFollowing = false;
         _rb.isKinematic = false;
         _rb.useGravity = true;
+
+        // --- ADDED FORCE FOR "THUD" ---
+        _rb.AddForce(Vector3.down * dropForce, ForceMode.Impulse);
+        // ---
 
         // This component has done its job, remove it.
         Destroy(this);
