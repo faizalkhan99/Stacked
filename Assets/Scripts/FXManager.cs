@@ -28,7 +28,7 @@ public class FXManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         InitializePool();
     }
 

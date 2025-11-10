@@ -266,6 +266,7 @@ public class GameManager : MonoBehaviour
         {
             AudioManager.Instance.PlaySFX(SoundID.PerfectLanding);
             Debug.Log("PERFECT PLACEMENT!");
+            SettingsManager.Instance.TryVibrate();
 
             _perfectCombo++;
             if (uiManager) uiManager.ShowComboText(_perfectCombo);
@@ -370,8 +371,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        landedBlock.position = targetPos;
-        landedBlock.rotation = targetRot;
+        landedBlock.SetPositionAndRotation(targetPos, targetRot);
     }
 
     // This coroutine is now ONLY for the CutBlock combo reward
@@ -627,6 +627,7 @@ public class GameManager : MonoBehaviour
         if (currentState == GameState.GameOver) return;
         currentState = GameState.GameOver;
         Debug.Log($"Game Over! {reason} Final Score: {_score}");
+        SettingsManager.Instance.TryVibrate();
         _currentFallingBlock = null;
         _currentSwingingBlock = null;
 
