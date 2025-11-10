@@ -45,7 +45,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.25
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -172,7 +172,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 5a974da81f45bf348b13d240c434f6ac, type: 3}
+  m_Resource: {fileID: 8300000, guid: bb59483c1abec4f41881b66f9c8a09d5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.25
   m_Pitch: 1
@@ -303,7 +303,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.25
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -417,9 +417,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3869778166211435657}
   - {fileID: 5397337204305567897}
   - {fileID: 3327289712085736112}
-  - {fileID: 3869778166211435657}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &2536159416301013573
@@ -440,10 +440,14 @@ MonoBehaviour:
   - {fileID: 1933543870682825051}
   _sfxLibrary:
   - id: 0
-    clip: {fileID: 8300000, guid: d0c28bc5c5bddb34bbbed6e62ea5d94d, type: 3}
-  - id: 2
     clip: {fileID: 8300000, guid: 40f9c6bf9f852a14ab5aa49b1f3bfc9f, type: 3}
-  - id: 3
-    clip: {fileID: 8300000, guid: cd8b9f8ffad0cc64ea147215e28c6257, type: 3}
   - id: 1
-    clip: {fileID: 8300000, guid: a9bbb5f9c7fc50c4da584cf2dc49b32a, type: 3}
+    clip: {fileID: 8300000, guid: c0814ebc51cb9f743a064ba6a9782644, type: 3}
+  - id: 3
+    clip: {fileID: 8300000, guid: 9883101962e28644c880a8f8763d9896, type: 3}
+  - id: 4
+    clip: {fileID: 8300000, guid: cbdf07c17d89f9547ad88ab6f62fc011, type: 3}
+  - id: 2
+    clip: {fileID: 8300000, guid: d602e9e78becac542a03db904f44d199, type: 3}
+  - id: 5
+    clip: {fileID: 8300000, guid: 0b19c6d72cb0fc4469e76d219dd156e9, type: 3}
