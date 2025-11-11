@@ -87,7 +87,7 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BlendStrength: 2.56
+    - _BlendStrength: 1.26
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -101,7 +101,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GradientHeight: 0.354
+    - _GradientHeight: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

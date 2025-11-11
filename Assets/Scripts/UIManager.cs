@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
     [Header("Main Menu Canvas Panels")]
     [SerializeField] private GameObject _mainMenuPanel;
     [SerializeField] private GameObject _settingsPanel;
+    [SerializeField] private GameObject _tutorialPanel;
     [SerializeField] private GameObject _creditsPanel;
     [SerializeField] private TextMeshProUGUI mainMenuHighScoreText;
 
@@ -326,12 +327,19 @@ public void OnVibrationsToggled(bool isOn)
         HideAllMainMenuPanels();
         StartFade(_settingsPanel, true);
         InitializeSettingsUI();
+        if(_tutorialPanel) _tutorialPanel.SetActive(false);
     }
 
     public void ShowCredits()
     {
         HideAllMainMenuPanels();
         StartFade(_creditsPanel, true);
+    }
+    public void ShowTutorial()
+    {
+        //HideAllMainMenuPanels();
+        // Assuming tutorial is part of credits panel for this example
+        StartFade(_tutorialPanel, true);
     }
 
     public void ShowGameUI()
@@ -568,6 +576,12 @@ public void OnVibrationsToggled(bool isOn)
         PlayButtonClickSFX();
         ShowCredits();
     }
+    public void OnTutorialButtonClicked()
+    {
+        PlayButtonClickSFX();
+        // Assuming tutorial is part of credits panel for this example
+        ShowTutorial();
+    }
     public void OnQuitButtonClicked()
     {
         PlayButtonClickSFX();
@@ -611,6 +625,11 @@ public void OnVibrationsToggled(bool isOn)
     {
         PlayButtonClickSFX();
         ShowMainMenu();
+    }
+    public void OnBackFromTutorialClicked()
+    {
+        PlayButtonClickSFX();
+        ShowSettings();
     }
 
     // -- In-Game Buttons --
