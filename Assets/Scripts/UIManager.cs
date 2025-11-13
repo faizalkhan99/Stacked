@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 // Define the Category structure here
 [System.Serializable]
 public class ScoreCommentCategory
@@ -379,9 +380,13 @@ public void OnVibrationsToggled(bool isOn)
 
     public void UpdateMainMenuHighScore(int score)
     {
-        if (mainMenuHighScoreText)
+        if (mainMenuHighScoreText && score > 0)
         {
-            mainMenuHighScoreText.text = $"{score}";
+            mainMenuHighScoreText.text = $"BEST {score}";
+        }
+        else
+        {
+            mainMenuHighScoreText.text = "";
         }
     }
 
