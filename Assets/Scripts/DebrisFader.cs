@@ -1,14 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody))]
 public class DebrisFader : MonoBehaviour
 {
     private Coroutine _fadeCoroutine;
+    private Rigidbody _rb; // Cache the Rigidbody
 
-    // Call this to start the fade and destroy process
+    void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    // Call this to start the fade and return-to-pool process
     public void StartFade(float duration)
     {
-        // Stop any existing fade just in case
         if (_fadeCoroutine != null)
         {
             StopCoroutine(_fadeCoroutine);
@@ -25,17 +31,23 @@ public class DebrisFader : MonoBehaviour
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            // Use a simple Lerp for a linear scale down
             float t = Mathf.Clamp01(timer / duration);
-
-            // Apply the new scale
             transform.localScale = Vector3.Lerp(startScale, endScale, t);
-
-            yield return null; // Wait for the next frame
+            yield return null;
         }
 
-        // Ensure final scale is zero and destroy the object
+        // Ensure final scale is zero
         transform.localScale = endScale;
-        Destroy(gameObject);
+
+        // Reset the Rigidbody state
+        if (_rb != null)
+        {
+            _rb.isKinematic = true;
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+        }
+
+        // Return to the pool
+        DebrisPooler.Instance.ReturnDebris(gameObject);
     }
 }
